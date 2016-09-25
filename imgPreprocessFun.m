@@ -18,7 +18,7 @@ if verbose
 end
 % 二值化
 level = graythresh(img);
-BW = im2bw(img,level);
+BW = im2bw(img,level+0.01);
 
 % 取反
 BW = ~BW;
