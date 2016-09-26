@@ -1,4 +1,4 @@
-function [ BW,L ] = imgPreprocessFun( imgDir,verbose )
+function [ BW,L,CC ] = imgPreprocessFun( imgDir,verbose )
 %imgPreprocessFun 对图像进行预处理
 %   预处理过程:
 %   1. 二值化
