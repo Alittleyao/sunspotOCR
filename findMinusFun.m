@@ -6,7 +6,7 @@ index = find(Eccentricity >= 0.9 & ...
     Area >= 120 &...
     Solidity >= 0.72 );
 N = length(index);
-if N >=1 && N <= 2
+if  N >=1 && N <= 2
     minusIndex = index;
 end
 end
