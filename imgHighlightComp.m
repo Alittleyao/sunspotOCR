@@ -1,4 +1,4 @@
-function  imgHighlightComp( BW,h,color )
+function  [RGB] = imgHighlightComp( BW,h,color )
 %imgHighlightComp 高亮图像中的一部分
 %   此处显示详细说明
 if iscell(h)
@@ -41,7 +41,7 @@ if iscell(h)
 
     % 转换为RGB
     RGB = cat(3, R, G, B);
-    figure,imshow(RGB)
+%     figure,imshow(RGB)
 
 end
 end

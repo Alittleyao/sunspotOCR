@@ -1,4 +1,4 @@
-function [ aimCharIndex,aimChar,du,minus,plus ] = splitUpImgCharFun( upImg,verbose )
+function [ aimCharIndex,aimChar,du,minus,plus,RGB,mergedImg ] = splitUpImgCharFun( upImg,verbose )
 %splitCharFun 分割区块字符函数
 %   此处显示详细说明
 
@@ -8,7 +8,7 @@ L = labelmatrix(CC);
 
 % 分割粘连字符
 for i = 1:CC.NumObjects
-    if sum(any(L==i)) > 65 % 如果连通块的宽度大于65
+    if sum(any(L==i)) > 60 % 如果连通块的宽度大于60
         [img,rIndex,cIndex] = extractCompFun( L,i,0 );
         [ newImg,splitCharImg ] = splitConnectCharFun( img,0 );
         if ~isempty(splitCharImg)
@@ -23,7 +23,7 @@ L = labelmatrix(CC);
 
 % 分割粘连字符
 for i = 1:CC.NumObjects
-    if sum(any(L==i)) > 65 % 如果连通块的宽度大于65
+    if sum(any(L==i)) > 60 % 如果连通块的宽度大于60
         [img,rIndex,cIndex] = extractCompFun( L,i,0 );
         [ newImg,splitCharImg ] = splitConnectCharFun( img,0 );
         if ~isempty(splitCharImg)
@@ -65,28 +65,25 @@ for i = 1:leftN
         plus = [plus,leftComp(i)];
     end
 end
-
-if verbose 
-    imgHighlightComp( upImg,{du,minus,plus},{'red','blue','green'} )
-%     imgHighlightComp( upImg,minus,'blue' )
-%     imgHighlightComp( upImg,plus,'green' )
+[RGB] = imgHighlightComp( upImg,{du,minus,plus},{'red','blue','green'} ); 
+if verbose
+    figure, imshow(RGB)
 end
 
 
 aimCharIndex = setdiff(leftComp,plus);
 aimN = length(aimCharIndex);
-if verbose
-    figure
-    for i = 1:aimN
-        subplot(1,aimN,i)
-        imshow(charImg{aimCharIndex(i)})
-    end
-end
+
 
 aimChar = cell(1,aimN);
 for i = 1:aimN
     aimChar{i} = charImg{aimCharIndex(i)};
 end
 
+[ mergedImg ] = mergeImageFun( aimChar,0 );
+if verbose
+    figure
+    imshow(mergedImg)
+end
 end
 
