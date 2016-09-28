@@ -55,7 +55,7 @@ end
 
 % 筛掉面积小于250 主轴长大于150 的连通块
 leftComp = setdiff(find(Area>250&MajorAxisLength>10&MajorAxisLength<150 &...
-    abs(rMean - Centroid(:,2))' < 30 & Height > 35),[equal,prime]);
+    abs(rMean - Centroid(:,2))' < 30 & Height >= 33),[equal,prime]);
 leftN = length(leftComp);
 
 aimCharIndex = leftComp;
