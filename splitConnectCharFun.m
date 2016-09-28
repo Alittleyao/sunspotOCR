@@ -3,7 +3,7 @@ function [ newImg,charImg ] = splitConnectCharFun( img,verbose )
 %   此处显示详细说明
 % 标记连通区域
 charImg = {};
-for i = 1:4
+for i = 1:3
     se = strel('disk', i);
     newImg = imerode(img, se);
     CC = bwconncomp(newImg);

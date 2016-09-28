@@ -13,7 +13,6 @@ img = imread(fullfile('qukuaitu3',int2str(M),imgName(i,:)));
 figure, imshow(label2rgb(L));
 % 上下分区区域
 [ k,upImg,downImg ] = splitImgFun( BW,0 );
-figure, imshow(downImg)
 [ aimCharIndex,aimChar,du,minus,plus ] = splitUpImgCharFun( upImg,1 );
 [ aimCharIndex2,aimChar2 ] = splitDownImgCharFun( downImg,1 );
 %imgHighlightComp( upImg,[du,minus,plus],'red' )

@@ -8,7 +8,7 @@ L = labelmatrix(CC);
 
 % 分割粘连字符
 for i = 1:CC.NumObjects
-    if sum(any(L==i)) > 80 % 如果连通块的宽度大于80
+    if sum(any(L==i)) > 55 % 如果连通块的宽度大于80
         [img,rIndex,cIndex] = extractCompFun( L,i,0 );
         [ newImg,splitCharImg ] = splitConnectCharFun( img,0 );
         if ~isempty(splitCharImg)
@@ -23,7 +23,7 @@ L = labelmatrix(CC);
 
 % 分割粘连字符
 for i = 1:CC.NumObjects
-    if sum(any(L==i)) > 63 % 如果连通块的宽度大于80
+    if sum(any(L==i)) > 55 % 如果连通块的宽度大于80
         [img,rIndex,cIndex] = extractCompFun( L,i,0 );
         [ newImg,splitCharImg ] = splitConnectCharFun( img,0 );
         if ~isempty(splitCharImg)
@@ -43,19 +43,19 @@ for i = 1:CC.NumObjects
 end
 
 % 提取区块属性
-[Eccentricity,ConvexArea,Solidity,Centroid,Orientation,MajorAxisLength,Area] = findPropFun(downImg);
+[Eccentricity,ConvexArea,Solidity,Centroid,Orientation,MajorAxisLength,Area,rMean,Height,Width] = findPropFun(downImg);
 
 % 寻找等号
-[minus] = findEqualFun(Eccentricity, Orientation,MajorAxisLength,Area,Solidity);
+[equal] = findEqualFun(Eccentricity, Orientation,MajorAxisLength,Area,Solidity);
 % 寻找撇号
-[ prime ] = findPrimeFun( Centroid,Eccentricity );
+[ prime ] = findPrimeFun( Centroid,Eccentricity,rMean,MajorAxisLength,Orientation,Area );
 if verbose 
-    imgHighlightComp( downImg,[minus,prime],'red' )
+    imgHighlightComp( downImg,{equal,prime},{'red','blue'} )
 end
 
 % 筛掉面积小于250 主轴长大于150 的连通块
 leftComp = setdiff(find(Area>250&MajorAxisLength>10&MajorAxisLength<150 &...
-    (Centroid(:,2))' > 35),[minus,prime]);
+    abs(rMean - Centroid(:,2))' < 30 & Height > 35),[equal,prime]);
 leftN = length(leftComp);
 
 aimCharIndex = leftComp;

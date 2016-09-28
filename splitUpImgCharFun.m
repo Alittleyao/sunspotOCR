@@ -67,7 +67,9 @@ for i = 1:leftN
 end
 
 if verbose 
-    imgHighlightComp( upImg,[du,minus,plus],'red' )
+    imgHighlightComp( upImg,{du,minus,plus},{'red','blue','green'} )
+%     imgHighlightComp( upImg,minus,'blue' )
+%     imgHighlightComp( upImg,plus,'green' )
 end
 
 

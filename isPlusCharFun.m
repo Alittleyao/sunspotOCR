@@ -2,14 +2,17 @@ function [ plus ] = isPlusCharFun( img, verbose  )
 %isPlusCharFun 判断img是否是'+'字符
 %   此处显示详细说明
 plus = 0;
-
+[height,width] = size(img);
+    
 % 垂直方向开运算
 se = strel('line',15,90);
 temp1 = imopen(img,se);
+temp1 = bwareaopen(temp1, 10);
 CC1 = bwconncomp(temp1);
 % 水平方向开运算
 se2 = strel('line',15,0);
 temp2 = imopen(img,se2);
+temp2 = bwareaopen(temp2, 10);
 CC2 = bwconncomp(temp2);
 
 
@@ -18,7 +21,8 @@ if CC1.NumObjects == 1 && CC2.NumObjects == 1
     stats2 = regionprops(temp2,'Eccentricity','Orientation','Centroid');
     if abs(stats1.Orientation(1)) > 80 && abs(stats2.Orientation(1)) < 10 &&...
             stats1.Eccentricity(1) > 0.8 && stats2.Eccentricity(1) > 0.8 &&...
-            abs(stats1.Centroid(1,2)-stats2.Centroid(1,2))<15
+            abs(stats1.Centroid(1,2)-stats2.Centroid(1,2))/height<0.2 &&...
+            abs(stats1.Centroid(1,1)-stats2.Centroid(1,1))/width<0.1
         plus = 1;
     end
 end
