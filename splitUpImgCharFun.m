@@ -8,7 +8,7 @@ L = labelmatrix(CC);
 
 % 分割粘连字符
 for i = 1:CC.NumObjects
-    if sum(any(L==i)) > 80 % 如果连通块的宽度大于80
+    if sum(any(L==i)) > 65 % 如果连通块的宽度大于65
         [img,rIndex,cIndex] = extractCompFun( L,i,0 );
         [ newImg,splitCharImg ] = splitConnectCharFun( img,0 );
         if ~isempty(splitCharImg)
@@ -23,7 +23,7 @@ L = labelmatrix(CC);
 
 % 分割粘连字符
 for i = 1:CC.NumObjects
-    if sum(any(L==i)) > 63 % 如果连通块的宽度大于80
+    if sum(any(L==i)) > 65 % 如果连通块的宽度大于65
         [img,rIndex,cIndex] = extractCompFun( L,i,0 );
         [ newImg,splitCharImg ] = splitConnectCharFun( img,0 );
         if ~isempty(splitCharImg)
