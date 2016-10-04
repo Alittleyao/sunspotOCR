@@ -12,11 +12,12 @@ end
 while length(index) >= 2
     Centroid2 = Centroid(index,:);
     [~,index2] = sort(Centroid2(:,2));
-    duIndex = [index(index2(1:2))];
+    duIndex = index(index2(1:2));
     if abs(diff(Centroid2(index2(1:2),1))) < 40
         index(index2(2)) = [];
     else
         break
     end
 end
+duIndex = sort(duIndex);
 end
