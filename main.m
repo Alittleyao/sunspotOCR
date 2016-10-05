@@ -17,10 +17,13 @@ for M = 1:60
             % 图像预处理
             [ BW,L,CC ] = imgPreprocessFun( img,0 );
 %             figure, imshow(label2rgb(L));
-            % 上下分区区域
+            % 上下区块分区
             [ k,upImg,downImg ] = splitImgFun( BW,0 );
+            %处理上区块
             [ aimCharIndex,aimChar,du,minus,plus,RGB,mergedImg ] = splitUpImgCharFun( upImg,0 );
+            %处理下区块
             [ aimCharIndex2,aimChar2,RGB2,mergedImg2 ] = splitDownImgCharFun( downImg,0 );
+            %将处理过程和结果拼接显示在一张图像上
             [ allImg ] = mergeImageFun( {BW,RGB,mergedImg,RGB2,mergedImg2},1 );
             imwrite(allImg,fullfile(endFolder,deblank(imgName(i,:))))
 %             figure, imshow(allImg)
